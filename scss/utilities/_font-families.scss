@@ -1,6 +1,6 @@
-@use '../abstracts/' as *;
+@use '../abstracts/font-families' as ff;
 
-@each $label, $family in $fontFamilies {
+@each $label, $family in ff.$fontFamilies {
 	.ff-#{$label} {
 		font-family: #{$family} !important;
 	}

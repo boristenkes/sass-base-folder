@@ -1,19 +1,29 @@
-@use './breakpoints' as *;
+@use 'sass:meta';
+@use 'sass:math';
+@use './breakpoints' as br;
 
 @mixin mq($query, $width-type: min) {
-	@if map_has_key($breakpoints, $query) {
-		$query: map_get($breakpoints, $query);
+	@if map-has-key(br.$breakpoints, $query) {
+		$query: map-get(br.$breakpoints, $query);
 		@if ($width-type == min) {
-			$query: $query + 1px;
+			$query: $query + 0.1em;
 		}
 		@media only screen and (#{$width-type}-width: $query) {
 			@content;
+		}
+	} @else if meta.type-of($query) == number {
+		@if math.is-unitless($query) {
+			@error 'You need to provide a unit.';
+		} @else {
+			@media screen and (#{$width-type}-width: $query) {
+				@content;
+			}
 		}
 	} @else if $query == 'landscape' or $query == 'portrait' {
 		@media only screen and (orientation: $query) {
 			@content;
 		}
-	} @else if $query == 'dark' or $query == 'light' {
+	} @else if $query == dark or $query == light {
 		@media (prefers-color-scheme: $query) {
 			@content;
 		}
@@ -39,7 +49,7 @@
 	}
 }
 
-@mixin separate-children($space: 1rem, $direction: 'vertical') {
+@mixin gap($space: 1rem, $direction: 'vertical') {
 	& > *:not(:last-child) {
 		@if $direction == 'vertical' {
 			margin-bottom: $space;
@@ -52,7 +62,7 @@
 	}
 }
 
-@mixin responsive-grid($width: 300px, $gap: 1rem) {
+@mixin grid-auto-fit($width: 300px, $gap: 1rem) {
 	display: grid;
 	gap: $gap;
 	grid-template-columns: repeat(auto-fit, minmax($width, 1fr));
@@ -70,9 +80,40 @@
 	}
 }
 
+@mixin shadow($variant: 1) {
+	@if ($variant < 1 or $variant > 5) {
+		@error "Unknown shadow variant";
+	}
+
+	$alpha1: 0.012;
+	$alpha2: 0.018;
+	$alpha3: 0.03;
+
+	@if $variant == 2 {
+		$alpha1: 0.016;
+		$alpha2: 0.024;
+		$alpha3: 0.04;
+	} @else if $variant == 3 {
+		$alpha1: 0.02;
+		$alpha2: 0.03;
+		$alpha3: 0.05;
+	} @else if $variant == 4 {
+		$alpha1: 0.03;
+		$alpha2: 0.042;
+		$alpha3: 0.07;
+	} @else if $variant == 5 {
+		$alpha1: 0.04;
+		$alpha2: 0.06;
+		$alpha3: 0.1;
+	}
+
+	box-shadow: 0px 6px 5px rgb(0 0 0 / $alpha1),
+		0px 22px 18px rgb(0 0 0 / $alpha2), 0px 100px 80px rgb(0 0 0 / $alpha3);
+}
+
 @mixin triangle($direction: 'right', $size: 20px, $color: #555) {
-	width: 0;
-	height: 0;
+	width: 0 !important;
+	height: 0 !important;
 
 	@if $direction == 'up' {
 		border-left: $size solid transparent;
@@ -90,10 +131,12 @@
 		border-top: $size solid transparent;
 		border-bottom: $size solid transparent;
 		border-right: $size solid $color;
+	} @else {
+		@error "Unknown triangle direction";
 	}
 }
 
-@mixin bg-img(
+@mixin bg(
 	$image-src,
 	$size: cover,
 	$position: center,

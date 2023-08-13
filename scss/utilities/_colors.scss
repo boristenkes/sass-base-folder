@@ -1,6 +1,6 @@
-@use '../abstracts/' as *;
+@use '../abstracts/colors' as clr;
 
-@each $color, $listOfShades in $colors {
+@each $color, $listOfShades in clr.$colors {
 	@each $label, $shade in $listOfShades {
 		.text-#{$color}-#{$label} {
 			color: #{$shade} !important;

@@ -1,15 +1,17 @@
-@use '../abstracts/' as *;
+@use '../../scss/abstracts/colors' as clr;
+@use '../../scss/abstracts/font-families' as ff;
+@use '../../scss/abstracts/font-weights' as fw;
 
 :root {
-	@each $color, $listOfShades in $colors {
+	@each $color, $listOfShades in clr.$colors {
 		@each $label, $shade in $listOfShades {
 			--clr-#{$color}-#{$label}: #{$shade};
 		}
 	}
-	@each $label, $family in $fontFamilies {
+	@each $label, $family in ff.$fontFamilies {
 		--ff-#{$label}: #{$family};
 	}
-	@each $label, $weight in $fontWeights {
+	@each $label, $weight in fw.$fontWeights {
 		--fw-#{$label}: #{$weight};
 	}
 }

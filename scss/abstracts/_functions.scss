@@ -1,0 +1,24 @@
+@use '../../scss/abstracts/colors' as clr;
+@use '../../scss/abstracts/font-families' as ff;
+@use '../../scss/abstracts/font-weights' as fw;
+
+@function clr($colorName, $shade) {
+	@if not map-has-key(clr.$colors, $colorName, $shade) {
+		@error "Unknown color";
+	}
+	@return map-get(clr.$colors, $colorName, $shade);
+}
+
+@function font($font) {
+	@if not map-has-key(ff.$fontFamilies, $font) {
+		@error "Unknown font";
+	}
+	@return map-get(ff.$fontFamilies, $font);
+}
+
+@function weight($weight) {
+	@if not map-has-key(fw.$fontWeights, $weight) {
+		@error 'Unknown font weight';
+	}
+	@return map-get(fw.$fontWeights, $weight);
+}

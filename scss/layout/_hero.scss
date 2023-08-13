@@ -1,0 +1,4 @@
+.hero {
+	min-height: 100vh; // backup for browsers that don't support `dvh`
+	min-height: 100dvh;
+}
