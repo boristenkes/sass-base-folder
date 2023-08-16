@@ -1,0 +1,51 @@
+@use '../abstracts/sizes' as sizes;
+
+@each $key, $size in sizes.$sizes {
+	.mt-#{$key} {
+		margin-top: $size !important;
+	}
+
+	.mr-#{$key} {
+		margin-right: $size !important;
+	}
+
+	.mb-#{$key} {
+		margin-bottom: $size !important;
+	}
+
+	.ml-#{$key} {
+		margin-left: $size !important;
+	}
+
+	.mx-#{$key} {
+		margin-inline: $size !important;
+	}
+
+	.my-#{$key} {
+		margin-block: $size !important;
+	}
+
+	.pt-#{$key} {
+		padding-top: $size !important;
+	}
+
+	.pr-#{$key} {
+		padding-right: $size !important;
+	}
+
+	.pb-#{$key} {
+		padding-bottom: $size !important;
+	}
+
+	.pl-#{$key} {
+		padding-left: $size !important;
+	}
+
+	.px-#{$key} {
+		padding-inline: $size !important;
+	}
+
+	.py-#{$key} {
+		padding-block: $size !important;
+	}
+}
