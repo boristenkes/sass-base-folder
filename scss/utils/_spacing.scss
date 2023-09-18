@@ -1,6 +1,10 @@
 @use '../abstracts/sizes' as sizes;
 
 @each $key, $size in sizes.$sizes {
+	.m-#{$key} {
+		margin: $size !important;
+	}
+
 	.mt-#{$key} {
 		margin-top: $size !important;
 	}
@@ -23,6 +27,10 @@
 
 	.my-#{$key} {
 		margin-block: $size !important;
+	}
+
+	.p-#{$key} {
+		padding: $size !important;
 	}
 
 	.pt-#{$key} {
