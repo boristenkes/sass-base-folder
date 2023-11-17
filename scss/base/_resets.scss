@@ -36,7 +36,7 @@ svg {
 }
 
 button,
-input:is([type='button'], [type='submit']) {
+input:is([type='button'], [type='submit'], [type='reset']) {
 	cursor: pointer;
 }
 

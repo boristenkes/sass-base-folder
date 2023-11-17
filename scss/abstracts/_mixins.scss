@@ -49,6 +49,12 @@
 	}
 }
 
+@mixin hover {
+	&:is(:hover, :focus-visible) {
+		@content;
+	}
+}
+
 @mixin gap($space: 1rem, $direction: 'vertical') {
 	& > *:not(:last-child) {
 		@if $direction == 'vertical' {
